@@ -1,7 +1,10 @@
 package za.co.bngweny.Model;
 
+import javax.validation.constraints.NotNull;
+
 public class Hero
 {
+    @NotNull
     private String name;
     private String heroclass;
     private int level, experience, attack, defence, hitpoints;
@@ -16,7 +19,9 @@ public class Hero
         this.hitpoints = hitpoints;
     }
 
-    public Hero() {
+    public Hero(String name, int experience) {
+        this.name = name;
+        this.experience = experience;
     }
 
     public String getName() {
