@@ -12,7 +12,9 @@ public class Hero
     private String heroclass;
     @Range(min=0, max=100, message="Honourable member dont do dat")
     private int level;
-    private int experience, attack, defence, hitpoints;
+    private int experience, attack, defence;
+    private int hitpoints; //An numeral indication of how much damage a character can sustain. The loss of all hit points results in the death of the character
+    private int x, y;
 
     public Hero(String name, String heroclass, int level, int experience, int attack, int defence, int hitpoints) {
         this.name = name;
@@ -22,6 +24,8 @@ public class Hero
         this.attack = attack;
         this.defence = defence;
         this.hitpoints = hitpoints;
+        x = ((level-1)*5+10-(level%2)) / 2;
+        y = x;
     }
 
     public Hero(String name, int level) {
@@ -84,4 +88,21 @@ public class Hero
     public void setHitpoints(int hitpoints) {
         this.hitpoints = hitpoints;
     }
+
+    public int getX() {
+        return x;
+    }
+
+    public void setX(int x) {
+        this.x = x;
+    }
+
+    public int getY() {
+        return y;
+    }
+
+    public void setY(int y) {
+        this.y = y;
+    }
+
 }

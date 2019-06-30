@@ -1,5 +1,7 @@
 package za.co.bngweny.Controller;
 
+import za.co.bngweny.Model.Hero;
+
 public class Factory {
 
     public static int[][] getMap(int level) {
@@ -9,7 +11,6 @@ public class Factory {
 
     public static Hero getNewHero(String name, String heroclass, int level)
     {
-//String name, String heroclass, int level, int experience, int attack, int defence, int hitpoints
         return new Hero(name, heroclass, level, 0, 80, 80, 100);
     }
 }
