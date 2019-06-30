@@ -1,5 +1,6 @@
 package za.co.bngweny;
 
+import za.co.bngweny.Controller.Factory;
 import za.co.bngweny.Model.Hero;
 
 /**
@@ -16,11 +17,11 @@ public class App
     public static void main( String[] args )
     {
         System.out.println( "Hello World!" );
-        Hero myhero = new Hero("Boss", 23);
+        Hero myhero = Factory.getNewHero("Boss", "bourgeoisie", 15);
         System.out.println(myhero.getName() + " - should be boss");
         tryfin(myhero);
         System.out.println(myhero.getName());
-
+        System.out.println(myhero);
         if (args.length >= 1)
         {
             System.out.println(args[0]);

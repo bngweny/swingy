@@ -20,7 +20,8 @@ public class Helm implements Artifact
 
     public void doStuff(Hero myHero)
     {
-        
+        int hp = myHero.getHitpoints() + value;
+        myHero.setHitpoints(hp);
     }
 
     public String getName() {

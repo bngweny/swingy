@@ -20,6 +20,8 @@ public class Armor implements Artifact
 
     public void doStuff(Hero myHero)
     {
+        int defence = myHero.getDefence() + value;
+        myHero.setDefence(defence);
     }
 
     public String getName() {

@@ -21,7 +21,8 @@ public class Weapon implements Artifact
 
     public void doStuff(Hero myHero)
     {
-        
+        int att = myHero.getAttack() + value;
+        myHero.setAttack(att);        
     }
 
     public String getName() {

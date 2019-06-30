@@ -2,12 +2,17 @@ package za.co.bngweny.Model;
 
 import javax.validation.constraints.NotNull;
 
+import org.hibernate.validator.constraints.Range;
+
 public class Hero
 {
     @NotNull
     private String name;
+    @NotNull
     private String heroclass;
-    private int level, experience, attack, defence, hitpoints;
+    @Range(min=0, max=100, message="Honourable member dont do dat")
+    private int level;
+    private int experience, attack, defence, hitpoints;
 
     public Hero(String name, String heroclass, int level, int experience, int attack, int defence, int hitpoints) {
         this.name = name;
@@ -19,9 +24,9 @@ public class Hero
         this.hitpoints = hitpoints;
     }
 
-    public Hero(String name, int experience) {
+    public Hero(String name, int level) {
         this.name = name;
-        this.experience = experience;
+        this.level = level;
     }
 
     public String getName() {
