@@ -56,5 +56,4 @@ public class Villain
     public void setHealth(int health) {
         this.health = health;
     }
-    
 }

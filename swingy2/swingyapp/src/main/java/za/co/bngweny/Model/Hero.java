@@ -104,5 +104,18 @@ public class Hero
     public void setY(int y) {
         this.y = y;
     }
+// public Hero(String name, String heroclass, int level, int experience, int attack, int defence, int hitpoints) {
+    @Override
+    public String toString()
+    {
+        String output = String.format("-10%s : 15%s\n","Name", this.name);
+        output += String.format("-10%s : 15%s\n","Class", this.heroclass);
+        output += String.format("-10%s : 15%d\n","Level", this.level);
+        output += String.format("-10%s : 15%d\n","Experience", this.experience);
+        output += String.format("-10%s : 15%d\n","Attack", this.attack);
+        output += String.format("-10%s : 15%d\n","Defence", this.defence);
+        output += String.format("-10%s : 15%d","Hitpoints", this.hitpoints);
+        return output;
+    }
 
 }
