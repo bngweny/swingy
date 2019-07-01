@@ -1,6 +1,7 @@
 package za.co.bngweny;
 
 import za.co.bngweny.Controller.Factory;
+import za.co.bngweny.Controller.GameController;
 import za.co.bngweny.Model.Hero;
 
 /**
@@ -22,6 +23,7 @@ public class App
         tryfin(myhero);
         System.out.println(myhero.getName());
         System.out.println(myhero);
+        GameController.saveHero(myhero);
         if (args.length >= 1)
         {
             System.out.println(args[0]);

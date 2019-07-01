@@ -4,7 +4,7 @@ import za.co.bngweny.Controller.Factory;
 
 public class Game {
     private int level;
-    private int map[][];
+    private Hero map[][];
 
     public Game(int level) {
         this.level = level;
@@ -19,11 +19,11 @@ public class Game {
         this.level = level;
     }
 
-    public int[][] getMap() {
+    public Hero[][] getMap() {
         return map;
     }
 
-    public void setMap(int[][] map) {
+    public void setMap(Hero[][] map) {
         this.map = map;
     }
 }
