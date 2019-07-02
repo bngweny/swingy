@@ -1,0 +1,2 @@
+bngweny,fighter,1,2,5,7,8
+malema,transporter,1,25,5,70,80

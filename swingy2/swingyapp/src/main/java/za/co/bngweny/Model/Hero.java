@@ -101,6 +101,11 @@ public class Hero
         return y;
     }
 
+    public void levelUp()
+    {
+        level = level*1000 + (int)Math.pow((level - 1), 2) * 450;
+    }
+
     public void setY(int y) {
         this.y = y;
     }
@@ -108,13 +113,13 @@ public class Hero
     @Override
     public String toString()
     {
-        String output = String.format("-10%s : 15%s\n","Name", this.name);
-        output += String.format("-10%s : 15%s\n","Class", this.heroclass);
-        output += String.format("-10%s : 15%d\n","Level", this.level);
-        output += String.format("-10%s : 15%d\n","Experience", this.experience);
-        output += String.format("-10%s : 15%d\n","Attack", this.attack);
-        output += String.format("-10%s : 15%d\n","Defence", this.defence);
-        output += String.format("-10%s : 15%d","Hitpoints", this.hitpoints);
+        String output = String.format("%-10s : %15s\n","Name", this.name);
+        output += String.format("%-10s : %15s\n","Class", this.heroclass);
+        output += String.format("%-10s : %15d\n","Level", this.level);
+        output += String.format("%-10s : %15d\n","Experience", this.experience);
+        output += String.format("%-10s : %15d\n","Attack", this.attack);
+        output += String.format("%-10s : %15d\n","Defence", this.defence);
+        output += String.format("%-10s : %15d","Hitpoints", this.hitpoints);
         return output;
     }
 
