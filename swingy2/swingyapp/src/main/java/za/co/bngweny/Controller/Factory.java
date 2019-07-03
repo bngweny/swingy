@@ -11,7 +11,12 @@ public class Factory {
         int x = (level-1)*5+10-(level%2);
         return new Villain[x][x];
     }
+    //TODO generate artifacts
+    public static void generateArtifacts()
+    {
 
+    }
+    
     public static Hero getNewHero(String name, String heroclass, int level)
     {
         return new Hero(name, heroclass, level, 0, 80, 80, 100);
@@ -28,6 +33,7 @@ public class Factory {
     public static Villain getRandomVillain(int level)
     {
         return new Villain("named villain", 1000, 100, 100, 100);
+        //TODO generate different types of villains
     }
     
     public static void generateVillains(Villain villains[][], int level)
@@ -37,5 +43,7 @@ public class Factory {
         {
             villains[(int)(Math.random() * i)][(int)(Math.random() * i)] = getRandomVillain(level);
         }
+        int temp = villains.length;
+        villains[temp/2][temp/2] = null;
     }
 }

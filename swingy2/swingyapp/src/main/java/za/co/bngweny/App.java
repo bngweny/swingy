@@ -17,14 +17,14 @@ public class App {
 
     public static void main(String[] args) {
         System.out.println("Hello World!");
-        Hero myhero = Factory.getNewHero("Boss", "bourgeoisie", 15);
+        Hero myhero = Factory.getNewHero("Boss", "bourgeoisie", 1);
         /*
          * System.out.println(myhero.getName() + " - should be boss"); tryfin(myhero);
          * System.out.println(myhero.getName()); System.out.println(myhero);
          * GameController.saveHero(myhero);
          */
         ConsoleView start = new ConsoleView(myhero, 1);
-        start.chooseHeroes();
+        start.menu();
         if (args.length >= 1) {
             System.out.println(args[0]);
         }
