@@ -15,6 +15,7 @@ public class Hero
     private int experience, attack, defence;
     private int hitpoints; //An numeral indication of how much damage a character can sustain. The loss of all hit points results in the death of the character
     private int x, y;
+    private int previousXY[];
 
     public Hero(String name, String heroclass, int level, int experience, int attack, int defence, int hitpoints) {
         this.name = name;
@@ -24,8 +25,12 @@ public class Hero
         this.attack = attack;
         this.defence = defence;
         this.hitpoints = hitpoints;
-        x = ((level-1)*5+10-(level%2)) / 2;
+        x = ((level-1)*5+10-(level%2));
+        x = x/2;
         y = x;
+        previousXY =  new int[2];
+        previousXY[0] = x;
+        previousXY[1] = y;
     }
 
     public Hero(String name, int level) {
@@ -109,6 +114,38 @@ public class Hero
     public void setY(int y) {
         this.y = y;
     }
+
+    public void moveLeft() //TODO end game when edge reached
+    {
+        previousXY[1] = y;
+        --y;
+    }
+
+    public void moveRight()
+    {
+        previousXY[1] = y;
+        ++y;
+    }
+
+    public void moveDown()
+    {
+        previousXY[0] = x;        
+        ++x;
+    }
+
+    public void moveUp()
+    {
+        previousXY[0] = x;
+        --x;
+    }
+
+    /**
+     * @return the previousXY
+     */
+    public int[] getPreviousXY() {
+        return previousXY;
+    }
+
 // public Hero(String name, String heroclass, int level, int experience, int attack, int defence, int hitpoints) {
     @Override
     public String toString()
