@@ -15,10 +15,12 @@ public class ConsoleView
 {
     private Hero myhero;
     private int level;
+    private  Scanner sc;
 
     public ConsoleView(Hero myhero, int level) {
         this.myhero = myhero;
         this.level = level;
+        sc = new Scanner(System.in);
     }
 
     public ConsoleView(int level) {
@@ -58,10 +60,11 @@ public class ConsoleView
         System.out.println("4. EXIT");
         System.out.println("--------------------------");
         System.out.println("NUMBER");
-      //  Scanner sc = new Scanner(System.in);
-    //    String output = sc.nextLine();
-    //    sc.close();
-        switch (3)
+
+        System.out.println("\n Enter your number of choice");
+        String output = sc.nextLine();
+        int choice = Integer.parseInt(output);
+        switch (choice)
         {
             case 1:
                 chooseHeroes();
@@ -75,9 +78,9 @@ public class ConsoleView
         }
     }
 
-    public int getKey(Scanner sc)
+    public int getKey()
     {
-        System.out.println("Enter key");
+        System.out.println("up,down.left,right,exit - Enter key");
         String output = sc.nextLine();
   //      sc.close();
         if (output.equalsIgnoreCase("left"))
@@ -96,6 +99,10 @@ public class ConsoleView
         {
             return utils.down;
         }
+        else if (output.equalsIgnoreCase("exit"))
+        {
+            return 4;
+        }
         return -1;
     }
 
@@ -105,9 +112,7 @@ public class ConsoleView
         Factory.generateVillains(game.getMap(),  level);
 
         Villain [][] temp = game.getMap();
-        
-
-        Scanner sc = new Scanner(System.in);
+       
         while (game != null)
         {
             for (int i = 0; i < temp.length; i++) {
@@ -133,12 +138,18 @@ public class ConsoleView
             int key = -1;
             while (key < 0)
             {
-                key = getKey(sc);
+                key = getKey();
              if (key < -1)
                 {
                     System.out.println("Incorrect input. Try again");
                 }
             }
+            if (key == 4)
+            {
+                game.exitGame(myhero);
+                break;
+            }
+
             int out = game.move(myhero, key);
             if (out == 2)
             {

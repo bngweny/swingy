@@ -48,6 +48,11 @@ public class Game {
         }
     }
 
+    public void exitGame(Hero myhero)
+    {
+        //TODO persist game data
+    }
+
     public boolean reachedEdge(Hero myHero)
     {
         if(myHero.getX() == 0 || myHero.getY() == 0)
