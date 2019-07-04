@@ -1,5 +1,7 @@
 package za.co.bngweny.Model;
 
+import java.util.ArrayList;
+
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.Range;
@@ -16,6 +18,7 @@ public class Hero
     private int hitpoints; //An numeral indication of how much damage a character can sustain. The loss of all hit points results in the death of the character
     private int x, y;
     private int previousXY[];
+    private ArrayList<Artifact> artifacts;
 
     public Hero(String name, String heroclass, int level, int experience, int attack, int defence, int hitpoints) {
         this.name = name;
@@ -158,6 +161,19 @@ public class Hero
         output += String.format("%-10s : %15d\n","Defence", this.defence);
         output += String.format("%-10s : %15d","Hitpoints", this.hitpoints);
         return output;
+    }
+
+    public ArrayList<Artifact> getArtifacts() {
+        return artifacts;
+    }
+
+    public void setArtifacts(ArrayList<Artifact> artifacts) {
+        this.artifacts = artifacts;
+    }
+
+    public void addArtifact(Artifact newArtifact)
+    {
+        this.artifacts.add(newArtifact);
     }
 
 }

@@ -34,9 +34,23 @@ public class Game {
         return (map[x][y] != null); 
     }
 
-    public void flightORfight(Hero myHero)
+    public int fight(Hero myHero) //1 = win 0 = lose
     {
-        System.out.println("\n to fight or not to fight");
+        return 0;
+    }
+
+    public void flightORfight(Hero myHero, String choice)
+    {
+        //  System.out.println("\n to fight or not to fight");
+        if (choice.equalsIgnoreCase("fight"))
+        {
+            fight(myHero);
+        }
+    }
+
+    public void exitGame(Hero myhero)
+    {
+        //TODO persist game data
     }
 
     public boolean reachedEdge(Hero myHero)
@@ -45,7 +59,7 @@ public class Game {
         {
             return true;
         }
-        else if (myHero.getX() == map.length || myHero.getY() == map.length)
+        else if (myHero.getX() == map.length  || myHero.getY() == map.length)
         {
             return true;
         }
@@ -71,11 +85,12 @@ public class Game {
                 myhero.moveDown();
                 break;
             default :
-                //TODO error
+                System.out.println("ERROR");
             break;
         }
         if (isCollision(myhero.getX(), myhero.getY()))
         {
+            System.out.println("fight bro please");
             return 1;   //Collision. Fight or run
         }
         else if (reachedEdge(myhero))
