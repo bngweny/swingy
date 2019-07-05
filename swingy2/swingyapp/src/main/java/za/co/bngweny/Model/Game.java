@@ -36,16 +36,38 @@ public class Game {
 
     public int fight(Hero myHero) //1 = win 0 = lose
     {
+        //this.map[myHero.getX()][myHero.getY()] = null; if success remove villain
         return 0;
     }
 
-    public void flightORfight(Hero myHero, String choice)
+    public int run(Hero myHero)
     {
+        int r = (int)(Math.random() * 10);
+        if (r < 5)
+        {           
+            return 1; //GAME OVER
+        }
+        else
+        {
+            int temp[] = myHero.getPreviousXY();
+            myHero.setX(temp[0]);
+            myHero.setY(temp[1]);
+            return 2; //successful run
+        }
+    }
+
+    public int flightORfight(Hero myHero, String choice)
+    {//0-win fight, 1-lose-fight, 1-fail to run, 2-successful run
         //  System.out.println("\n to fight or not to fight");
         if (choice.equalsIgnoreCase("fight"))
         {
-            fight(myHero);
+            return fight(myHero);
         }
+        else if (choice.equalsIgnoreCase("run"))
+        {
+            return run(myHero);
+        }
+        return -1;
     }
 
     public void exitGame(Hero myhero)

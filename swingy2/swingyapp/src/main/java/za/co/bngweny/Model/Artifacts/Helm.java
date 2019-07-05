@@ -13,7 +13,7 @@ public class Helm implements Artifact
         this.value = (10 + (int)(Math.random() * 60));
     }
 
-    public Helm(String name, int value) {
+    public Helm(String name) {
         this.name = name;
         this.value = (10 + (int)(Math.random() * 80));
     }

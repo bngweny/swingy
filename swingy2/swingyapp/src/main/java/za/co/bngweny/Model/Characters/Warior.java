@@ -1,16 +1,17 @@
 package za.co.bngweny.Model.Characters;
 
-import za.co.bngweny.Model.Hero;
+import za.co.bngweny.Model.Villain;
 
-public class Warior extends Hero
+public class Warior extends Villain
 {
 
-    public Warior(String name, String heroclass, int level, int experience, int attack, int defence, int hitpoints) {
-        super(name, heroclass, level, experience, attack, defence, hitpoints);
+    public Warior(String name,int level, int defence, int attack,int health) {
+        super(name, level, defence, attack, health);
     }
 
-    public Warior(String name, int level) {
-        super(name, level);
+    public Warior(String name, int level)
+    {
+        super(name, level, 100, 100, 100);
     }
     
 }
