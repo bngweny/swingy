@@ -56,4 +56,29 @@ public class Villain
     public void setHealth(int health) {
         this.health = health;
     }
+
+    public void takeDamage(int damage)
+    {
+        if (damage >= this.defence)
+        {
+            damage -= this.defence;
+            this.health = (damage >= this.health ? 0 : this.health - damage);
+            this.defence = 0;
+        }
+        else{
+            this.defence -= damage;
+        }
+    }
+
+    @Override
+    public String toString()
+    {
+//int level, int defence, int attack, int health) {
+        String output = String.format("%-10s : %15s\n","Name", this.name);
+        output += String.format("%-10s : %15d\n","Level", this.level);
+        output += String.format("%-10s : %15d\n","Defence", this.defence);
+        output += String.format("%-10s : %15d\n","Attack", this.attack);
+        output += String.format("%-10s : %15d\n","Health", this.health);
+        return output;
+    }
 }

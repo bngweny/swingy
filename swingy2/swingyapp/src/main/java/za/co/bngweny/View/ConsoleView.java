@@ -157,9 +157,30 @@ public class ConsoleView
             }
             else if (out == 1)
             {
-                System.out.println("YOU have encountered the mighty Villain. Do you want to 'fight' or do you want to 'run'?");
+                System.out.println("YOU have encountered the mighty Villain.");
+                System.out.println(game.getVillain(myhero.getX(), myhero.getY()));
+                System.out.println("Do you want to 'fight' or do you want to 'run'?");
+
                 String output = sc.nextLine();
-                game.flightORfight(myhero, output);
+                int result = game.flightORfight(myhero, output);
+                if (result == 1)
+                {
+                    System.out.println("You lost! You failed to evade the enemy");
+                    break;
+                }
+                else if (result == 3)
+                {
+                    System.out.println("The Hero has fallen in Battle. GAME OVER :(");
+                    break;
+                }
+                else if (result == 2)
+                {
+                    System.out.println("The hero has successfully evaded the Villain!");
+                }
+                else if (result == 0)
+                {
+                    System.out.println("The hero WON the battle! Yay");
+                }
             }
         }
         sc.close();
