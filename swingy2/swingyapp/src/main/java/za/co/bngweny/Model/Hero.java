@@ -149,6 +149,19 @@ public class Hero
         return previousXY;
     }
 
+    public void takeDamage(int damage)
+    {
+        if (damage >= this.defence)
+        {
+            damage -= this.defence;
+            this.hitpoints = (damage >= this.hitpoints ? 0 : this.hitpoints - damage);
+            this.defence = 0;
+        }
+        else{
+            this.defence -= damage;
+        }
+    }
+
 // public Hero(String name, String heroclass, int level, int experience, int attack, int defence, int hitpoints) {
     @Override
     public String toString()
