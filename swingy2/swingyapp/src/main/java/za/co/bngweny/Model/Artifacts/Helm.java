@@ -39,4 +39,12 @@ public class Helm implements Artifact
     public void setValue(int value) {
         this.value = value;
     }
+
+    @Override
+    public String toString()
+    {
+        String out = String.format("%-15s: %15s\n", "Name", this.name);
+        out += String.format("%-15s: %+d %s\n", "Points:", this.value, "HP");
+        return out;
+    }
 }
