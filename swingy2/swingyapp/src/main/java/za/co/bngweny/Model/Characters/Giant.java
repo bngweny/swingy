@@ -13,7 +13,7 @@ public class Giant extends Villain {
 
     public Giant(String name, int level)
     {
-        super(name, level, 100, 100, 100);
+        super(name, level, ((45 + (int)(Math.random() * 50)) + (10 * level)), ((int)(Math.random() * 25) + (15 * level)), ((int)(Math.random() * 20) + (10 * level)));
     }
     
 }

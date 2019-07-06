@@ -13,7 +13,7 @@ public class Assassin extends Villain{
 
     public Assassin(String name, int level)
     {
-        super(name, level, 100, 100, 100);
+        super(name, level, ((40 + (int)(Math.random() * 40)) + (15 * level)), ((int)(Math.random() * 25) + (15 * level)), ((int)(Math.random() * 20) + (15 * level)));
     }
     
 }

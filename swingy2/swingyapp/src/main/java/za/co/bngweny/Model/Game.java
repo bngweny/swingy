@@ -38,6 +38,12 @@ public class Game {
         return (map[x][y] != null); 
     }
 
+    public void acceptArtifact(Artifact item, Hero myHero)
+    {
+        item.doStuff(myHero);
+        myHero.addArtifact(item);
+    }
+
     public int fight(Hero myHero) //1 = win 0 = lose
     {
        // int attDifference = this.map[myHero.getX()][myHero.getY()].getDefence() - myHero.getAttack(); // when hero attacks //take into account HP when
@@ -71,9 +77,6 @@ public class Game {
         else
         {
             this.map[myHero.getX()][myHero.getY()] = null; //if success remove villain
-            Artifact trophy = Factory.generateArtifacts();
-            trophy.doStuff(myHero);
-            myHero.addArtifact(trophy);
             return 0;
         }
     }

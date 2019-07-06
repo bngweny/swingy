@@ -11,7 +11,6 @@ public class Warior extends Villain
 
     public Warior(String name, int level)
     {
-        super(name, level, 100, 100, 100);
+        super(name, level, ((35 + (int)(Math.random()) * 40) + (10 * level)), ((int)(Math.random() * 25) + (5 * level)), ((int)(Math.random() * 20) + (15 * level)));
     }
-    
 }

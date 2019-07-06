@@ -28,12 +28,18 @@ public class Hero
         this.attack = attack;
         this.defence = defence;
         this.hitpoints = hitpoints;
-        x = ((level-1)*5+10-(level%2));
-        x = x/2;
-        y = x;
-        previousXY =  new int[2];
-        previousXY[0] = x;
-        previousXY[1] = y;
+        setup(level);
+        artifacts = new ArrayList<Artifact>();
+    }
+
+    public void setup(int level)
+    {
+        this.x = ((level-1)*5+10-(level%2));
+        this.x = this.x/2;
+        this.y = this.x;
+        this.previousXY =  new int[2];
+        this.previousXY[0] = this.x;
+        this.previousXY[1] = this.y;
     }
 
     public Hero(String name, int level) {
@@ -120,25 +126,29 @@ public class Hero
 
     public void moveLeft() //TODO end game when edge reached
     {
+        previousXY[0] = x; 
         previousXY[1] = y;
         --y;
     }
 
     public void moveRight()
     {
+        previousXY[0] = x; 
         previousXY[1] = y;
         ++y;
     }
 
     public void moveDown()
     {
-        previousXY[0] = x;        
+        previousXY[0] = x;
+        previousXY[1] = y;        
         ++x;
     }
 
     public void moveUp()
     {
         previousXY[0] = x;
+        previousXY[1] = y;
         --x;
     }
 
