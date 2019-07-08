@@ -4,6 +4,7 @@ import za.co.bngweny.Controller.Factory;
 import za.co.bngweny.Controller.GameController;
 import za.co.bngweny.Model.Hero;
 import za.co.bngweny.View.ConsoleView;
+import za.co.bngweny.View.GUIView;
 
 /**
  * Hello world!
@@ -25,6 +26,9 @@ public class App {
          */
         ConsoleView start = new ConsoleView(myhero, 1);
         start.menu();
+
+        //GUIView view = new GUIView();
+       // GUIView.main(args);
         if (args.length >= 1) {
             System.out.println(args[0]);
         }

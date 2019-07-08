@@ -203,6 +203,16 @@ public class ConsoleView
                         game.acceptArtifact(item, myhero);
                     }               
                 }
+                else if (result == 7)
+                {
+                    System.out.println("\n*************************************\n");
+                    System.out.println("Congratulations!  Your courage in battle has afforded you entry into the next level "+ (this.level + 1));
+                    System.out.println("Press ENTER key to continue");
+                    sc.nextLine();
+
+                    nextLevel(myhero);
+                    break;
+                }
             }
         }
         sc.close();
