@@ -199,4 +199,8 @@ public class Hero
         this.artifacts.add(newArtifact);
     }
 
+    public void gainExperience(int exp)
+    {
+        this.experience += exp;
+    }
 }

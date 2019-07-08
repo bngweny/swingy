@@ -44,11 +44,24 @@ public class Game {
         myHero.addArtifact(item);
     }
 
+    public int levelUpBasedOnXp(int xp)
+    {
+        int powerup = level * 1000 + (int)Math.pow((level - 1), 2) * 450;
+        if (xp >= powerup)
+        {
+            return 7;
+        }
+        else {
+            return 0;
+        }
+    }
+
     public int fight(Hero myHero) //1 = win 0 = lose
     {
        // int attDifference = this.map[myHero.getX()][myHero.getY()].getDefence() - myHero.getAttack(); // when hero attacks //take into account HP when
         //int defDifference = myHero.getDefence() - this.map[myHero.getX()][myHero.getY()].getAttack(); // when hero gets attacked
         int i = 1;
+        int power = this.map[myHero.getX()][myHero.getY()].getAttack() + this.map[myHero.getX()][myHero.getY()].getDefence() + this.map[myHero.getX()][myHero.getY()].getHealth();
         while (myHero.getHitpoints() > 0 && this.map[myHero.getX()][myHero.getY()].getHealth() > 0)
         {
             int luckDen = (int)(Math.random() * 100); //10/100
@@ -76,8 +89,9 @@ public class Game {
         }
         else
         {
+            myHero.gainExperience(power);
             this.map[myHero.getX()][myHero.getY()] = null; //if success remove villain
-            return 0;
+            return levelUpBasedOnXp(myHero.getExperience());
         }
     }
 
