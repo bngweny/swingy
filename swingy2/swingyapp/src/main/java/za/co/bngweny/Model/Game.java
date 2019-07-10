@@ -137,7 +137,7 @@ public class Game {
         {
             return true;
         }
-        else if (myHero.getX() == map.length  || myHero.getY() == map.length)
+        else if (myHero.getX() == map.length - 1  || myHero.getY() == map.length - 1)
         {
             return true;
         }

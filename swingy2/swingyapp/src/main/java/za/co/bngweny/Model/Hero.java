@@ -1,13 +1,16 @@
 package za.co.bngweny.Model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.Range;
 
-public class Hero
+
+public class Hero implements Serializable
 {
+    private static final long serialVersionUID = -9187020593331216877L;
     @NotNull
     private String name;
     @NotNull
