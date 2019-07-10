@@ -19,6 +19,8 @@ public class App {
     public static void main(String[] args) {
         System.out.println("Hello World!");
         Hero myhero = Factory.getNewHero("Boss", "bourgeoisie", 1);
+        Hero myhero1 = Factory.getNewHero("Brandon", "WTC", 1);
+        Hero myhero2 = Factory.getNewHero("name", "heroclass", 1, 122, 321, 213, 432);
         /*
          * System.out.println(myhero.getName() + " - should be boss"); tryfin(myhero);
          * System.out.println(myhero.getName()); System.out.println(myhero);
@@ -26,6 +28,13 @@ public class App {
          */
         ConsoleView start = new ConsoleView(myhero, 1);
         start.menu();
+   //     GameController.saveHero(myhero);
+     //   GameController.saveHero(myhero1);
+      //  GameController.saveHero(myhero2);
+        // System.out.println(GameController.getSavedHeroes().size());
+        for (Hero var : GameController.getSavedHeroes()){
+            System.out.println(var);
+        }
 
         //GUIView view = new GUIView();
        // GUIView.main(args);

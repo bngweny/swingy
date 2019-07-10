@@ -42,6 +42,10 @@ public class ConsoleView
             for (Hero curHero : saved) {
                 System.out.print(++i + ".\n" + curHero + "\n");
             }
+            System.out.println("\n Enter your number of choice");
+            String output = sc.nextLine();
+            int choice = Integer.parseInt(output);
+            this.myhero = saved.get(choice - 1);
             startGame();
         }
     }
@@ -49,6 +53,8 @@ public class ConsoleView
     public void createHero()
     {
         System.out.println("Create Hero");
+        System.out.println("Defender Of worlds");
+        
     }
 
     public void menu()
@@ -193,15 +199,18 @@ public class ConsoleView
                 else if (result == 0)
                 {
                     System.out.println("The hero WON the battle! Yay");
-                    Artifact item = Factory.generateArtifacts();
-                    System.out.println("You have won an item.");
-                    System.out.println(item);
-                    System.out.println("Do you want to keep it? (Y/N)");
-                    String outputString = sc.nextLine();
-                    if (outputString.equalsIgnoreCase("Y"))
+                    if ((Math.random() * 100) >= 40)
                     {
-                        game.acceptArtifact(item, myhero);
-                    }               
+                        Artifact item = Factory.generateArtifacts();
+                        System.out.println("You have won an item.");
+                        System.out.println(item);
+                        System.out.println("Do you want to keep it? (Y/N)");
+                        String outputString = sc.nextLine();
+                        if (outputString.equalsIgnoreCase("Y"))
+                        {
+                            game.acceptArtifact(item, myhero);
+                        }               
+                    }
                 }
                 else if (result == 7)
                 {
