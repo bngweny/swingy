@@ -26,12 +26,13 @@ public class App {
          * System.out.println(myhero.getName()); System.out.println(myhero);
          * GameController.saveHero(myhero);
          */
-        ConsoleView start = new ConsoleView(myhero, 1);
-        start.menu();
+      //  ConsoleView start = new ConsoleView(myhero, 1);
+     //   start.menu();
    //     GameController.saveHero(myhero);
      //   GameController.saveHero(myhero1);
       //  GameController.saveHero(myhero2);
         // System.out.println(GameController.getSavedHeroes().size());
+        za.co.bngweny.View.Gui.GUIView.main(myhero);
         for (Hero var : GameController.getSavedHeroes()){
             System.out.println(var);
         }
