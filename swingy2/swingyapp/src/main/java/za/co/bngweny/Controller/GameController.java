@@ -10,10 +10,10 @@ public class GameController {
         ArrayList<Hero> heroeslist = null;
         try {
             FileInputStream fileIn = new FileInputStream("src/main/java/za/co/bngweny/Database/Heroes.txt");
-         ObjectInputStream in = new ObjectInputStream(fileIn);
-         heroeslist = (ArrayList<Hero>)in.readObject();
-         in.close(); 
-         fileIn.close();
+            ObjectInputStream in = new ObjectInputStream(fileIn);
+            heroeslist = (ArrayList<Hero>) in.readObject();
+            in.close();
+            fileIn.close();
         } catch (Exception ex) {
             System.out.println(ex);
         }
@@ -23,29 +23,46 @@ public class GameController {
     public static void saveHero(Hero myHero) {
         ArrayList<Hero> heroeslist = getSavedHeroes();
         boolean exists = false;
-        for (Hero var : heroeslist) {
-            if (var.getName().equals(myHero.getName()))
-            {
+        for (int i = 0; i < heroeslist.size(); i++) {
+            if (heroeslist.get(i).getName().equals(myHero.getName())) {
                 exists = true;
-                var = myHero;
+                heroeslist.remove(i);
+                heroeslist.add(myHero);
                 break;
             }
         }
-        if (!exists)
-        {
+        if (!exists) {
             heroeslist.add(myHero);
         }
-        try
-        {
+        try {
             FileOutputStream fos = new FileOutputStream("src/main/java/za/co/bngweny/Database/Heroes.txt", false);
             ObjectOutputStream oos = new ObjectOutputStream(fos);
             oos.writeObject(heroeslist);
             oos.close();
             fos.close();
-        }
-        catch (IOException ioe)
-        {
+        } catch (IOException ioe) {
             ioe.printStackTrace();
         }
+    }
+
+    public static void deleteHero(Hero myHero) {
+        ArrayList<Hero> heroeslist = getSavedHeroes();
+        for (int i = 0; i < heroeslist.size(); i++) {
+            if (heroeslist.get(i).getName().equals(myHero.getName())) {
+                heroeslist.remove(i);
+                try {
+                    FileOutputStream fos = new FileOutputStream("src/main/java/za/co/bngweny/Database/Heroes.txt",
+                            false);
+                    ObjectOutputStream oos = new ObjectOutputStream(fos);
+                    oos.writeObject(heroeslist);
+                    oos.close();
+                    fos.close();
+                } catch (IOException ioe) {
+                    ioe.printStackTrace();
+                }
+                break;
+            }
+        }
+
     }
 }

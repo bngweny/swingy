@@ -37,6 +37,7 @@ public class Hero implements Serializable
 
     public void setup(int level)
     {
+        this.level = level;
         this.x = ((level-1)*5+10-(level%2));
         this.x = this.x/2;
         this.y = this.x;

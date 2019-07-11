@@ -1,6 +1,5 @@
 package za.co.bngweny.View;
 
-
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -12,32 +11,32 @@ import za.co.bngweny.Model.Hero;
 import za.co.bngweny.Model.Villain;
 import za.co.bngweny.Model.utils;
 
-public class ConsoleView
-{
+public class ConsoleView {
     private Hero myhero;
     private int level;
-    private  Scanner sc;
+    private Scanner sc;
 
     public ConsoleView(Hero myhero, int level) {
         this.myhero = myhero;
-        this.level = level;
+        this.level = myhero.getLevel();
         sc = new Scanner(System.in);
+    }
+
+    public ConsoleView() {
+        sc = new Scanner(System.in);
+        menu();
     }
 
     public ConsoleView(int level) {
         this.level = level;
     }
 
-    public void chooseHeroes()
-    {
+    public void chooseHeroes() {
         ArrayList<Hero> saved = GameController.getSavedHeroes();
-        if (saved.size() == 0)
-        {
+        if (saved.size() == 0) {
             System.out.println("....\nTHERE ARE CURENTLY NO SAVED HEROES!!! CREATE A NEW HERO");
             createHero();
-        }
-        else
-        {
+        } else {
             int i = 0;
             for (Hero curHero : saved) {
                 System.out.print(++i + ".\n" + curHero + "\n");
@@ -46,19 +45,45 @@ public class ConsoleView
             String output = sc.nextLine();
             int choice = Integer.parseInt(output);
             this.myhero = saved.get(choice - 1);
+            this.level = myhero.getLevel();
             startGame();
         }
     }
 
-    public void createHero()
-    {
-        System.out.println("Create Hero");
-        System.out.println("Defender Of worlds");
-        
+    public void createHero() {
+        System.out.println("Create Hero\n");
+        System.out.println("1.\nHeroClass : Warrior\nDefence   : 45\nAttack\t  : 95\nHit Points: 60\n");
+        System.out.println("2.\nHeroClass : Shield\nDefence   : 95\nAttack\t  : 60\nHit Points: 75\n");
+        System.out.println("3.\nHeroClass : Balanced\nDefence   : 70\nAttack\t  : 70\nHit Points: 67\n");
+        System.out.println("\n Enter your number of choice");
+        String output = sc.nextLine();
+        int choice = Integer.parseInt(output);
+        output = "";
+        while (output.equals("")) {
+            System.out.println("\nEnter your Hero name");
+            output = sc.nextLine();
+        }
+        switch (choice) {
+        case 1:
+            this.myhero = Factory.getNewHero(output, "Warrior", 1, 0, 95, 45, 60);
+            break;
+        case 2:
+            this.myhero = Factory.getNewHero(output, "Shield", 1, 0, 60, 95, 75);
+            break;
+        case 3:
+            this.myhero = Factory.getNewHero(output, "Balanced", 1, 0, 70, 70, 67);
+            break;
+        default:
+            System.out.println("error");
+            break;
+        }
+        this.level = myhero.getLevel();
+        System.out.println("Hero created successfully!\n\nPress ENTER key to continue");
+        sc.nextLine();
+        startGame();
     }
 
-    public void menu()
-    {
+    public void menu() {
         System.out.println("\n\nWELCOME TO THE GAME!!");
         System.out.println("---------OPTIONS----------");
         System.out.println("1. SELECT A HERO");
@@ -71,71 +96,56 @@ public class ConsoleView
         System.out.println("\n Enter your number of choice");
         String output = sc.nextLine();
         int choice = Integer.parseInt(output);
-        switch (choice)
-        {
-            case 1:
-                chooseHeroes();
-                break;
-            case 2:
-                createHero();
-                break;
-            case 3:
-                startGame();
-                break;
+        switch (choice) {
+        case 1:
+            chooseHeroes();
+            break;
+        case 2:
+            createHero();
+            break;
+        case 3:
+            startGame();
+            break;
         }
     }
 
-    public int getKey()
-    {
-        System.out.println("up,down,left,right,exit - Enter key");
+    public int getKey() {
+        System.out.println("up,down,left,right,exit,save - Enter key");
         String output = sc.nextLine();
-  //      sc.close();
-        if (output.equalsIgnoreCase("left"))
-        {
+        // sc.close();
+        if (output.equalsIgnoreCase("left")) {
             return utils.left;
-        }
-        else if (output.equalsIgnoreCase("right"))
-        {
+        } else if (output.equalsIgnoreCase("right")) {
             return utils.right;
-        }
-        else if(output.equalsIgnoreCase("up"))
-        {
+        } else if (output.equalsIgnoreCase("up")) {
             return utils.up;
-        }
-        else if (output.equalsIgnoreCase("down"))
-        {
+        } else if (output.equalsIgnoreCase("down")) {
             return utils.down;
-        }
-        else if (output.equalsIgnoreCase("exit"))
-        {
+        } else if (output.equalsIgnoreCase("exit")) {
             return 4;
+        } else if (output.equalsIgnoreCase("save")) {
+            return 5;
         }
         return -1;
     }
 
-    public void startGame()
-    {
+    public void startGame() {
+        System.out.println("============================================== " + level);
         Game game = new Game(level);
-        Factory.generateVillains(game.getMap(),  level);
+        Factory.generateVillains(game.getMap(), level);
 
-        Villain [][] temp = game.getMap();
-       
-        while (game != null)
-        {
+        Villain[][] temp = game.getMap();
+
+        while (game != null) {
             for (int i = 0; i < temp.length; i++) {
                 for (int j = 0; j < temp[i].length; j++) {
-                    if (i == myhero.getX() && j == myhero.getY())
-                    {
+                    if (i == myhero.getX() && j == myhero.getY()) {
                         System.out.print(String.format("%-5s", "0"));
-                    }
-                    else if (temp[i][j] != null)
-                    {
+                    } else if (temp[i][j] != null) {
                         System.out.print(String.format("%-5s", "X"));
-                    }
-                    else
-                    {
+                    } else {
                         System.out.print(String.format("%-5s", "-"));
-                    }            
+                    }
                 }
                 System.out.println();
             }
@@ -143,92 +153,80 @@ public class ConsoleView
             System.out.println(String.format("Player position (%d, %d)", myhero.getX(), myhero.getY()));
             System.out.println("\nEnter command (left, right, up, down) to move player");
             int key = -1;
-            while (key < 0)
-            {
+            while (key < 0) {
                 key = getKey();
-             if (key < -1)
-                {
+                if (key < -1) {
                     System.out.println("Incorrect input. Try again");
                 }
             }
-            if (key == 4)
-            {
+            if (key == 4) {
                 game.exitGame(myhero);
                 break;
             }
-
-            int out = game.move(myhero, key);
-            if (out == 2)
-            {
-                System.out.println("\n*************************************\n");
-                System.out.println("Congratulations! On to level "+ (this.level + 1));
-                System.out.println("Press ENTER key to continue");
-                sc.nextLine();
-
-                nextLevel(myhero);
-                break;
-            }
-            else if (out == 1)
-            {
-                System.out.println("YOU have encountered the mighty Villain.");
-                System.out.println(game.getVillain(myhero.getX(), myhero.getY()));
-                System.out.println("Do you want to 'fight' or do you want to 'run'?");
-
-                String output = sc.nextLine();
-                int result = game.flightORfight(myhero, output);
-                if (result == 1)
-                {
-                    System.out.println("You lost! You failed to evade the enemy");
-                    System.out.println("Press ENTER key to continue");
-                    sc.nextLine();
-                    break;
-                }
-                else if (result == 3)
-                {
-                    System.out.println("The Hero has fallen in Battle. GAME OVER :(");
-                    System.out.println("Press ENTER key to continue");
-                    sc.nextLine();
-                    break;
-                }
-                else if (result == 2)
-                {
-                    System.out.println("The hero has successfully evaded the Villain!");
-                    System.out.println("Press ENTER key to continue");
-                    sc.nextLine();
-                }
-                else if (result == 0)
-                {
-                    System.out.println("The hero WON the battle! Yay");
-                    if ((Math.random() * 100) >= 40)
-                    {
-                        Artifact item = Factory.generateArtifacts();
-                        System.out.println("You have won an item.");
-                        System.out.println(item);
-                        System.out.println("Do you want to keep it? (Y/N)");
-                        String outputString = sc.nextLine();
-                        if (outputString.equalsIgnoreCase("Y"))
-                        {
-                            game.acceptArtifact(item, myhero);
-                        }               
-                    }
-                }
-                else if (result == 7)
-                {
+            if (key == 5) {
+                GameController.saveHero(myhero);
+                System.out.println("Hero saved successfully!\n\n");
+            } else {
+                int out = game.move(myhero, key);
+                if (out == 2) {
                     System.out.println("\n*************************************\n");
-                    System.out.println("Congratulations!  Your courage in battle has afforded you entry into the next level "+ (this.level + 1));
+                    System.out.println("Congratulations! On to level " + (this.level + 1));
                     System.out.println("Press ENTER key to continue");
                     sc.nextLine();
 
                     nextLevel(myhero);
                     break;
+                } else if (out == 1) {
+                    System.out.println("YOU have encountered the mighty Villain.");
+                    System.out.println(game.getVillain(myhero.getX(), myhero.getY()));
+                    System.out.println("Do you want to 'fight' or do you want to 'run'?");
+
+                    String output = sc.nextLine();
+                    int result = game.flightORfight(myhero, output);
+                    if (result == 1) {
+                        System.out.println("You lost! You failed to evade the enemy");
+                        System.out.println("Press ENTER key to continue");
+                        sc.nextLine();
+                        break;
+                    } else if (result == 3) {
+                        System.out.println("The Hero has fallen in Battle. GAME OVER :(");
+                        System.out.println("Press ENTER key to continue");
+                        sc.nextLine();
+                        break;
+                    } else if (result == 2) {
+                        System.out.println("The hero has successfully evaded the Villain!");
+                        System.out.println("Press ENTER key to continue");
+                        sc.nextLine();
+                    } else if (result == 0) {
+                        System.out.println("The hero WON the battle! Yay");
+                        if ((Math.random() * 100) >= 75) {
+                            Artifact item = Factory.generateArtifacts();
+                            System.out.println("You have won an item.");
+                            System.out.println(item);
+                            System.out.println("Do you want to keep it? (Y/N)");
+                            String outputString = sc.nextLine();
+                            if (outputString.equalsIgnoreCase("Y")) {
+                                game.acceptArtifact(item, myhero);
+                            }
+                        }
+                    } else if (result == 7 || result == 4) {
+                        System.out.println("\n*************************************\n");
+                        System.out.println(
+                                "Congratulations!  Your courage in battle has afforded you entry into the next level "
+                                        + (this.level + 1));
+                        System.out.println("Press ENTER key to continue");
+                        sc.nextLine();
+
+                        nextLevel(myhero);
+                        break;
+                    }
                 }
             }
         }
         sc.close();
     }
 
-    private void nextLevel(Hero myHero)
-    {
+    private void nextLevel(Hero myHero) {
         this.level += 1;
         myHero.setup(this.level);
         startGame();

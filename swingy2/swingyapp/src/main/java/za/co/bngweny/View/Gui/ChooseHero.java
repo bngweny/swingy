@@ -5,6 +5,9 @@
  */
 package za.co.bngweny.View.Gui;
 
+import javax.swing.JOptionPane;
+import za.co.bngweny.Controller.Factory;
+
 /**
  *
  * @author cnngwenya
@@ -18,6 +21,15 @@ public class ChooseHero extends javax.swing.JFrame {
         initComponents();
     }
 
+    private String getHeroName()
+    {
+        String output = "";
+        while(output.equals(""))
+        {
+            output = JOptionPane.showInputDialog("Please enter your Hero Name");
+        }
+        return output;
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -28,93 +40,141 @@ public class ChooseHero extends javax.swing.JFrame {
     private void initComponents() {
 
         lblTitle = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        btnHero1 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTextArea2 = new javax.swing.JTextArea();
         jScrollPane3 = new javax.swing.JScrollPane();
         jTextArea3 = new javax.swing.JTextArea();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        btnHero2 = new javax.swing.JButton();
+        btnHero3 = new javax.swing.JButton();
+        btnBack = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         lblTitle.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
         lblTitle.setText("SWINGY");
 
-        jButton1.setText("hiro1");
+        btnHero1.setText("Hero1");
+        btnHero1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnHero1ActionPerformed(evt);
+            }
+        });
 
         jTextArea1.setColumns(20);
         jTextArea1.setRows(5);
-        jTextArea1.setText("hiro stats");
+        jTextArea1.setText("HeroClass : Warrior\nDefence   : 45\nAttack\t  : 95\nHit Points: 60");
         jScrollPane1.setViewportView(jTextArea1);
 
         jTextArea2.setColumns(20);
         jTextArea2.setRows(5);
-        jTextArea2.setText("hiro stats");
+        jTextArea2.setText("HeroClass : Shield\nDefence   : 95\nAttack\t  : 60\nHit Points: 75");
         jScrollPane2.setViewportView(jTextArea2);
 
         jTextArea3.setColumns(20);
         jTextArea3.setRows(5);
-        jTextArea3.setText("hiro stats");
+        jTextArea3.setText("HeroClass : Balanced\nDefence   : 70\nAttack\t  : 70\nHit Points: 67");
         jScrollPane3.setViewportView(jTextArea3);
 
-        jButton2.setText("hiro2");
+        btnHero2.setText("Hero2");
+        btnHero2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnHero2ActionPerformed(evt);
+            }
+        });
 
-        jButton3.setText("hiro3");
+        btnHero3.setText("Hero3");
+        btnHero3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnHero3ActionPerformed(evt);
+            }
+        });
+
+        btnBack.setText("Back");
+        btnBack.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBackActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGap(25, 25, 25)
+                .addComponent(btnHero1)
+                .addGap(130, 130, 130)
+                .addComponent(btnHero2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnHero3)
+                .addGap(82, 82, 82))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(98, 98, 98)
-                        .addComponent(lblTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(23, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(25, 25, 25)
-                .addComponent(jButton1)
-                .addGap(130, 130, 130)
-                .addComponent(jButton2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton3)
-                .addGap(82, 82, 82))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(btnBack))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(24, 24, 24)
+                .addContainerGap()
                 .addComponent(lblTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(31, 31, 31)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 155, Short.MAX_VALUE)
                     .addComponent(jScrollPane1)
                     .addComponent(jScrollPane3))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2)
-                    .addComponent(jButton3))
-                .addGap(31, 31, 31))
+                    .addComponent(btnHero1)
+                    .addComponent(btnHero2)
+                    .addComponent(btnHero3))
+                .addGap(8, 8, 8)
+                .addComponent(btnBack))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnHero1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHero1ActionPerformed
+        // TODO add your handling code here:
+        GUIView.main(Factory.getNewHero(getHeroName(), "Warrior", 1, 0, 95, 45, 60));
+        this.dispose();
+    }//GEN-LAST:event_btnHero1ActionPerformed
+
+    private void btnHero2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHero2ActionPerformed
+        // TODO add your handling code here:
+        GUIView.main(Factory.getNewHero(getHeroName(), "Shield", 1, 0, 60, 95, 75));
+        this.dispose();
+    }//GEN-LAST:event_btnHero2ActionPerformed
+
+    private void btnHero3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHero3ActionPerformed
+        // TODO add your handling code here:
+        GUIView.main(Factory.getNewHero(getHeroName(), "Balanced", 1, 0, 70, 70, 67));
+        this.dispose();
+    }//GEN-LAST:event_btnHero3ActionPerformed
+
+    private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
+        // TODO add your handling code here:
+        Menu.main();
+        this.dispose();
+    }//GEN-LAST:event_btnBackActionPerformed
+
     /**
-     * @param args the command line arguments
      */
-    public static void main(String args[]) {
+    public static void main() {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -150,9 +210,10 @@ public class ChooseHero extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
+    private javax.swing.JButton btnBack;
+    private javax.swing.JButton btnHero1;
+    private javax.swing.JButton btnHero2;
+    private javax.swing.JButton btnHero3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;

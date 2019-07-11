@@ -1,11 +1,14 @@
 package za.co.bngweny.Model.Artifacts;
 
+import java.io.Serializable;
+
 import za.co.bngweny.Model.Artifact;
 import za.co.bngweny.Model.Hero;
 
-public class Weapon implements Artifact
+public class Weapon implements Artifact, Serializable
 {
 
+    private static final long serialVersionUID = -4382288685695920966L;
     private String name;
     private int value;
 

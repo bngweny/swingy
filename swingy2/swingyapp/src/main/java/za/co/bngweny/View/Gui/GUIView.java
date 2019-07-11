@@ -7,6 +7,7 @@ package za.co.bngweny.View.Gui;
 
 import javax.swing.JOptionPane;
 import za.co.bngweny.Controller.Factory;
+import za.co.bngweny.Controller.GameController;
 import za.co.bngweny.Model.Artifact;
 import za.co.bngweny.Model.Game;
 import za.co.bngweny.Model.Hero;
@@ -32,7 +33,7 @@ public class GUIView extends javax.swing.JFrame {
 
     public GUIView(Hero myhero) {
         this.myhero = myhero;
-        this.level = 1;
+        this.level = myhero.getLevel();
         initComponents();
         populate(myhero);
         startGame();
@@ -89,12 +90,18 @@ public class GUIView extends javax.swing.JFrame {
                     //  System.out.println("Press ENTER key to continue");
                     //sc.nextLine();
                     JOptionPane.showMessageDialog(null, "You lost! You failed to evade the enemy");
+                    this.level = 1;
+                    Menu.main();
+                    dispose();
                     break;
                 case 3:
                     //     System.out.println("The Hero has fallen in Battle. GAME OVER :(");
                     //   System.out.println("Press ENTER key to continue");
 //                    sc.nextLine();
                     JOptionPane.showMessageDialog(null, "The Hero has fallen in Battle. GAME OVER :(");
+                    this.level = 1;
+                    Menu.main();
+                    dispose();
                     break;
                 case 2:
 //                    System.out.println("The hero has successfully evaded the Villain!");
@@ -105,19 +112,28 @@ public class GUIView extends javax.swing.JFrame {
                 case 0:
                  //   System.out.println("The hero WON the battle! Yay");
                     JOptionPane.showMessageDialog(null, "The hero WON the battle! Yay");
-
-                    /*         Artifact item = Factory.generateArtifacts();
-                    System.out.println("You have won an item.");
-                    System.out.println(item);
-                    System.out.println("Do you want to keep it? (Y/N)");
-                    String outputString = sc.nextLine();
-                    if (outputString.equalsIgnoreCase("Y"))
+                    if ((Math.random() * 100) >= 75)
                     {
-                        game.acceptArtifact(item, myhero);
-                    }*/
+                        Artifact item = Factory.generateArtifacts();
+                        JOptionPane.showMessageDialog(null, "You have won an item.\n" + item);
+                     //   System.out.println();
+                     //   System.out.println(item);
+                     int outputint = JOptionPane.showConfirmDialog(null, "Do you want to keep it? (Y/N)");
+                    //   /   = sc.nextLine();
+                        if (outputint == 0)
+                        {
+                            game.acceptArtifact(item, myhero);
+                        }               
+                    }
+                    break;
+                case 7:
+                case 4:
+                    JOptionPane.showMessageDialog(null, "Congratulations!  Your courage in battle has afforded you entry into the next level "+ (this.level + 1));
+                    nextLevel(myhero);
                     break;
                 default:
                     JOptionPane.showMessageDialog(null, "ERROR");
+                    this.level = 1;
                     break;
             }
         }
@@ -174,6 +190,8 @@ public class GUIView extends javax.swing.JFrame {
         btnLeft = new javax.swing.JButton();
         btnRight = new javax.swing.JButton();
         btnExit = new javax.swing.JButton();
+        btnSave = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -382,6 +400,15 @@ public class GUIView extends javax.swing.JFrame {
             }
         });
 
+        btnSave.setText("Save Hero");
+        btnSave.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSaveActionPerformed(evt);
+            }
+        });
+
+        jButton1.setText("ConsoleView");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -400,7 +427,12 @@ public class GUIView extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 331, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnExit, javax.swing.GroupLayout.Alignment.TRAILING))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jButton1)
+                        .addGap(22, 22, 22)
+                        .addComponent(btnSave)
+                        .addGap(29, 29, 29)
+                        .addComponent(btnExit)))
                 .addGap(26, 26, 26))
         );
         layout.setVerticalGroup(
@@ -413,7 +445,10 @@ public class GUIView extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 279, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnExit))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnExit)
+                            .addComponent(btnSave)
+                            .addComponent(jButton1)))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -430,6 +465,8 @@ public class GUIView extends javax.swing.JFrame {
 
     private void btnExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExitActionPerformed
         // TODO add your handling code here:
+        Menu.main();
+        this.dispose();
     }//GEN-LAST:event_btnExitActionPerformed
 
     private void btnLeftActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLeftActionPerformed
@@ -443,6 +480,16 @@ public class GUIView extends javax.swing.JFrame {
     private void btnDownActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDownActionPerformed
         move(utils.down);
     }//GEN-LAST:event_btnDownActionPerformed
+
+    private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
+        // TODO add your handling code here:
+        int option = JOptionPane.showConfirmDialog(rootPane, "Do you want to save Hero?");
+        if (option == 0)
+        {
+            GameController.saveHero(myhero);
+            JOptionPane.showMessageDialog(null, "Saved Successfully", "Success", JOptionPane.INFORMATION_MESSAGE);
+        }
+    }//GEN-LAST:event_btnSaveActionPerformed
 
     /**
      * @param args the command line arguments
@@ -491,7 +538,9 @@ public class GUIView extends javax.swing.JFrame {
     private javax.swing.JButton btnExit;
     private javax.swing.JButton btnLeft;
     private javax.swing.JButton btnRight;
+    private javax.swing.JButton btnSave;
     private javax.swing.JButton btnUp;
+    private javax.swing.JButton jButton1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
