@@ -117,7 +117,14 @@ public class Game {
         //  System.out.println("\n to fight or not to fight");
         if (choice.equalsIgnoreCase("fight"))
         {
-            return fight(myHero);
+            int i = fight(myHero);
+            if (i == 0 && reachedEdge(myHero))
+            {
+                return 4;
+            }
+            else{
+                return i;
+            }
         }
         else if (choice.equalsIgnoreCase("run"))
         {
