@@ -27,6 +27,10 @@ public class ConsoleView {
     public ConsoleView(Game game, Hero myhero) {
         this.myhero = myhero;
         this.level = myhero.getLevel();
+        if (sc != null)
+        {
+            sc.close();
+        }
         sc = new Scanner(System.in);
         startGame(game);
     }
@@ -52,10 +56,19 @@ public class ConsoleView {
             }
             System.out.println("\n Enter your number of choice");
             String output = sc.nextLine();
-            int choice = Integer.parseInt(output);
-            this.myhero = saved.get(choice - 1);
-            this.level = myhero.getLevel();
-            startGame(null);
+            int choice = - 1;
+            try{
+                choice = Integer.parseInt(output);
+            }catch(NumberFormatException ex)
+            {
+                System.out.println("You must enter a number");
+            }
+            if (choice > -1 && choice < saved.size())
+            {
+                this.myhero = saved.get(choice - 1);
+                this.level = myhero.getLevel();
+                startGame(null);
+            }
         }
     }
 
@@ -160,6 +173,7 @@ public class ConsoleView {
     }
 
     public void startGame(Game game) {
+        boolean gameover = false;
         if (game == null)
         {
             game = new Game(level);
@@ -213,19 +227,26 @@ public class ConsoleView {
                 } else if (out == 1) {
                     System.out.println("YOU have encountered the mighty Villain.");
                     System.out.println(game.getVillain(myhero.getX(), myhero.getY()));
-                    System.out.println("Do you want to 'fight' or do you want to 'run'?");
+                    
 
-                    String output = sc.nextLine();
+                    String output = "";
+                    while (!output.equalsIgnoreCase("fight") && !output.equalsIgnoreCase("run"))
+                    {
+                        System.out.println("Do you want to 'fight' or do you want to 'run'?");
+                        output = sc.nextLine();
+                    }
                     int result = game.flightORfight(myhero, output);
                     if (result == 1) {
                         System.out.println("You lost! You failed to evade the enemy");
                         System.out.println("Press ENTER key to continue");
                         sc.nextLine();
+                        gameover = true;
                         break;
                     } else if (result == 3) {
                         System.out.println("The Hero has fallen in Battle. GAME OVER :(");
                         System.out.println("Press ENTER key to continue");
                         sc.nextLine();
+                        gameover = true;
                         break;
                     } else if (result == 2) {
                         System.out.println("The hero has successfully evaded the Villain!");
@@ -233,6 +254,8 @@ public class ConsoleView {
                         sc.nextLine();
                     } else if (result == 0) {
                         System.out.println("The hero WON the battle! Yay");
+                        System.out.println("Press ENTER key to continue");
+                        sc.nextLine();
                         if ((Math.random() * 100) >= 70) {
                             Artifact item = Factory.generateArtifacts();
                             System.out.println("You have won an item.");
@@ -257,7 +280,10 @@ public class ConsoleView {
                 }
             }
         }
-        sc.close();
+        if (gameover)
+        {
+            sc.close();
+        }
     }
 
     private void nextLevel(Hero myHero) {
