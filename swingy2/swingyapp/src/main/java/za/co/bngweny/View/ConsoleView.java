@@ -10,6 +10,8 @@ import za.co.bngweny.Model.Game;
 import za.co.bngweny.Model.Hero;
 import za.co.bngweny.Model.Villain;
 import za.co.bngweny.Model.utils;
+import za.co.bngweny.View.Gui.GUIView;
+import za.co.bngweny.View.Gui.Menu;
 
 public class ConsoleView {
     private Hero myhero;
@@ -20,6 +22,13 @@ public class ConsoleView {
         this.myhero = myhero;
         this.level = myhero.getLevel();
         sc = new Scanner(System.in);
+    }
+
+    public ConsoleView(Game game, Hero myhero) {
+        this.myhero = myhero;
+        this.level = myhero.getLevel();
+        sc = new Scanner(System.in);
+        startGame(game);
     }
 
     public ConsoleView() {
@@ -46,7 +55,7 @@ public class ConsoleView {
             int choice = Integer.parseInt(output);
             this.myhero = saved.get(choice - 1);
             this.level = myhero.getLevel();
-            startGame();
+            startGame(null);
         }
     }
 
@@ -80,7 +89,19 @@ public class ConsoleView {
         this.level = myhero.getLevel();
         System.out.println("Hero created successfully!\n\nPress ENTER key to continue");
         sc.nextLine();
-        startGame();
+        startGame(null);
+    }
+
+    public void switchtoGui(Game game)
+    {
+        if (game == null || myhero == null)
+        {
+            Menu.main();
+        }
+        else
+        {
+            GUIView.main(game, this.myhero);
+        }
     }
 
     public void menu() {
@@ -88,7 +109,7 @@ public class ConsoleView {
         System.out.println("---------OPTIONS----------");
         System.out.println("1. SELECT A HERO");
         System.out.println("2. CREATE YOUR OWN HERO");
-        System.out.println("3. START GAME WITH RANDOM HERO");
+        System.out.println("3. SWITCH TO GUI");
         System.out.println("4. EXIT");
         System.out.println("--------------------------");
         System.out.println("NUMBER");
@@ -104,13 +125,20 @@ public class ConsoleView {
             createHero();
             break;
         case 3:
-            startGame();
+            switchtoGui(null);
+            break;
+        case 4:
+            System.out.println("............");
+            break;
+        default:
+            System.out.println("Wrong input! Let's try that again");
+            menu();
             break;
         }
     }
 
     public int getKey() {
-        System.out.println("up,down,left,right,exit,save - Enter key");
+        System.out.println("up,down,left,right,exit,save,gui - Enter key");
         String output = sc.nextLine();
         // sc.close();
         if (output.equalsIgnoreCase("left")) {
@@ -125,15 +153,18 @@ public class ConsoleView {
             return 4;
         } else if (output.equalsIgnoreCase("save")) {
             return 5;
+        } else if (output.equalsIgnoreCase("gui")) {
+            return 6;
         }
         return -1;
     }
 
-    public void startGame() {
-        System.out.println("============================================== " + level);
-        Game game = new Game(level);
-        Factory.generateVillains(game.getMap(), level);
-
+    public void startGame(Game game) {
+        if (game == null)
+        {
+            game = new Game(level);
+            Factory.generateVillains(game.getMap(), level);
+        }
         Villain[][] temp = game.getMap();
 
         while (game != null) {
@@ -166,6 +197,9 @@ public class ConsoleView {
             if (key == 5) {
                 GameController.saveHero(myhero);
                 System.out.println("Hero saved successfully!\n\n");
+            } else if (key == 6) {
+                switchtoGui(game);
+                break;
             } else {
                 int out = game.move(myhero, key);
                 if (out == 2) {
@@ -199,7 +233,7 @@ public class ConsoleView {
                         sc.nextLine();
                     } else if (result == 0) {
                         System.out.println("The hero WON the battle! Yay");
-                        if ((Math.random() * 100) >= 75) {
+                        if ((Math.random() * 100) >= 70) {
                             Artifact item = Factory.generateArtifacts();
                             System.out.println("You have won an item.");
                             System.out.println(item);
@@ -229,6 +263,6 @@ public class ConsoleView {
     private void nextLevel(Hero myHero) {
         this.level += 1;
         myHero.setup(this.level);
-        startGame();
+        startGame(null);
     }
 }

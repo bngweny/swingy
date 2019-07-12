@@ -1,9 +1,14 @@
 package za.co.bngweny.Model;
 
+import javax.validation.constraints.NotNull;
+import org.hibernate.validator.constraints.Range;
+
 public class Villain
 {
+    @NotNull
     private String name;
 
+    @Range(min=0, max=20000, message="point limit reached")
     private int level, defence, attack, health;
     public Villain()
     {    

@@ -175,7 +175,6 @@ public class Game {
         }
         if (isCollision(myhero.getX(), myhero.getY()))
         {
-            System.out.println("fight bro please");
             return 1;   //Collision. Fight or run
         }
         else if (reachedEdge(myhero))
