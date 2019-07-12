@@ -4,7 +4,6 @@ import za.co.bngweny.Controller.Factory;
 import za.co.bngweny.Controller.GameController;
 import za.co.bngweny.Model.Hero;
 import za.co.bngweny.View.ConsoleView;
-import za.co.bngweny.View.GUIView;
 import za.co.bngweny.View.Gui.Menu;
 
 /**

@@ -15,9 +15,11 @@ public class Hero implements Serializable
     private String name;
     @NotNull
     private String heroclass;
-    @Range(min=0, max=100, message="Honourable member dont do dat")
+    @Range(min=0, max=45, message="Level limit reached")
     private int level;
+    @Range(min=0, max=20000, message="Points limit reached")
     private int experience, attack, defence;
+    @Range(min=0, max=20000, message="HP limit reached")
     private int hitpoints; //An numeral indication of how much damage a character can sustain. The loss of all hit points results in the death of the character
     private int x, y;
     private int previousXY[];
@@ -205,6 +207,6 @@ public class Hero implements Serializable
 
     public void gainExperience(int exp)
     {
-        this.experience += exp;
+        this.experience += exp * 1.5;
     }
 }
