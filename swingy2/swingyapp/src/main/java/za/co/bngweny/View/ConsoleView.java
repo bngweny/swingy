@@ -47,6 +47,8 @@ public class ConsoleView {
         ArrayList<Hero> saved = GameController.getSavedHeroes();
         if (saved.size() == 0) {
             System.out.println("....\nTHERE ARE CURENTLY NO SAVED HEROES!!! CREATE A NEW HERO");
+            System.out.println("Press ENTER key to continue");
+            sc.nextLine();
             createHero();
         } else {
             int i = 0;
@@ -162,6 +164,8 @@ public class ConsoleView {
         ArrayList<Object> gamestate = GameController.getGameState();
         if (gamestate.size() == 0) {
             System.out.println("....\nTHERE ARE NO SAVED GAMES.");
+            System.out.println("Press ENTER key to continue");
+            sc.nextLine();
             menu();
         } else {
             this.myhero = (Hero) gamestate.get(1);
