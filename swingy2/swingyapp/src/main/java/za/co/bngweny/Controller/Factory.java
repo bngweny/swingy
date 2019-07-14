@@ -71,12 +71,12 @@ public class Factory {
     
     public static void generateVillains(Villain villains[][], int level)
     {
-        int i = villains.length;;
+        int i = (int)Math.pow(villains.length, 2) / 4;
+        int temp = villains.length;
         for(int j = 0; j < i; j++)
         {
-            villains[(int)(Math.random() * i)][(int)(Math.random() * i)] = getRandomVillain(level);
+            villains[(int)(Math.random() * temp)][(int)(Math.random() * temp)] = getRandomVillain(level);
         }
-        int temp = villains.length;
         villains[temp/2][temp/2] = null;
     }
 }
