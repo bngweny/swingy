@@ -5,6 +5,12 @@
  */
 package za.co.bngweny.View.Gui;
 
+import java.util.ArrayList;
+
+import za.co.bngweny.Controller.GameController;
+import za.co.bngweny.Model.Game;
+import za.co.bngweny.Model.Hero;
+
 /**
  *
  * @author cnngwenya
@@ -16,8 +22,15 @@ public class Menu extends javax.swing.JFrame {
      */
     public Menu() {
         initComponents();
+        configuresaved();
     }
 
+    public void configuresaved()
+    {
+        if (GameController.getGameState().size() == 0){
+            this.btnResume.setEnabled(false);
+        }
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -31,6 +44,7 @@ public class Menu extends javax.swing.JFrame {
         btnLoad = new javax.swing.JButton();
         btnCreate = new javax.swing.JButton();
         btnExit = new javax.swing.JButton();
+        btnResume = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -48,6 +62,13 @@ public class Menu extends javax.swing.JFrame {
         btnCreate.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCreateActionPerformed(evt);
+            }
+        });
+
+        btnResume.setText("Resume");
+        btnResume.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnResumeActionPerformed(evt);
             }
         });
 
@@ -70,6 +91,7 @@ public class Menu extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(132, 132, 132)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnResume)
                             .addComponent(btnCreate)
                             .addComponent(btnLoad)
                             .addComponent(btnExit))))
@@ -83,6 +105,8 @@ public class Menu extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(btnLoad)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnResume)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnCreate)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnExit)
@@ -92,22 +116,25 @@ public class Menu extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnResumeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoadActionPerformed
+        ArrayList<Object> gamestate = GameController.getGameState();
+        GUIView.main((Game)gamestate.get(0), (Hero)gamestate.get(1));
+        this.dispose();
+    }
+
     private void btnLoadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoadActionPerformed
-        // TODO add your handling code here:
         this.dispose();
         Load.main();
-    }//GEN-LAST:event_btnLoadActionPerformed
+    }
 
     private void btnCreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCreateActionPerformed
-        // TODO add your handling code here:
         ChooseHero.main();
         this.dispose();
-    }//GEN-LAST:event_btnCreateActionPerformed
+    }
 
     private void btnExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExitActionPerformed
-        // TODO add your handling code here:
         System.exit(0);
-    }//GEN-LAST:event_btnExitActionPerformed
+    }
 
     /**
      * @param args the command line arguments
@@ -152,5 +179,6 @@ public class Menu extends javax.swing.JFrame {
     private javax.swing.JButton btnExit;
     private javax.swing.JButton btnLoad;
     private javax.swing.JLabel lblTitle;
+    private javax.swing.JButton btnResume;
     // End of variables declaration//GEN-END:variables
 }

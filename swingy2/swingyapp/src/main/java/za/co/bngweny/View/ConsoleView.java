@@ -27,8 +27,7 @@ public class ConsoleView {
     public ConsoleView(Game game, Hero myhero) {
         this.myhero = myhero;
         this.level = myhero.getLevel();
-        if (sc != null)
-        {
+        if (sc != null) {
             sc.close();
         }
         sc = new Scanner(System.in);
@@ -56,18 +55,25 @@ public class ConsoleView {
             }
             System.out.println("\n Enter your number of choice");
             String output = sc.nextLine();
-            int choice = - 1;
-            try{
-                choice = Integer.parseInt(output);
-            }catch(NumberFormatException ex)
-            {
-                System.out.println("You must enter a number");
-            }
-            if (choice > -1 && choice < saved.size())
-            {
-                this.myhero = saved.get(choice - 1);
-                this.level = myhero.getLevel();
-                startGame(null);
+            if (output.equalsIgnoreCase("back") || output.equalsIgnoreCase("exit")) {
+                menu();
+            } else {
+                int choice = -1;
+                try {
+                    choice = Integer.parseInt(output);
+                } catch (NumberFormatException ex) {
+                    System.out.println("You must enter a number");
+                }
+                if (choice > -1 && choice <= saved.size()) {
+                    this.myhero = saved.get(choice - 1);
+                    this.level = myhero.getLevel();
+                    startGame(null);
+                } else {
+                    System.out.println("Try again");
+                    System.out.println("Press ENTER key to continue");
+                    sc.nextLine();
+                    chooseHeroes();
+                }
             }
         }
     }
@@ -79,40 +85,44 @@ public class ConsoleView {
         System.out.println("3.\nHeroClass : Balanced\nDefence   : 70\nAttack\t  : 70\nHit Points: 67\n");
         System.out.println("\n Enter your number of choice");
         String output = sc.nextLine();
-        int choice = Integer.parseInt(output);
-        output = "";
-        while (output.equals("")) {
-            System.out.println("\nEnter your Hero name");
-            output = sc.nextLine();
-        }
-        switch (choice) {
-        case 1:
+        if (output.equalsIgnoreCase("1")) {
+            output = "";
+            while (output.equals("")) {
+                System.out.println("\nEnter your Hero name");
+                output = sc.nextLine();
+            }
             this.myhero = Factory.getNewHero(output, "Warrior", 1, 0, 95, 45, 60);
-            break;
-        case 2:
+        } else if (output.equalsIgnoreCase("2")) {
+            output = "";
+            while (output.equals("")) {
+                System.out.println("\nEnter your Hero name");
+                output = sc.nextLine();
+            }
             this.myhero = Factory.getNewHero(output, "Shield", 1, 0, 60, 95, 75);
-            break;
-        case 3:
+        } else if (output.equalsIgnoreCase("3")) {
+            output = "";
+            while (output.equals("")) {
+                System.out.println("\nEnter your Hero name");
+                output = sc.nextLine();
+            }
             this.myhero = Factory.getNewHero(output, "Balanced", 1, 0, 70, 70, 67);
-            break;
-        default:
-            System.out.println("error");
-            break;
-        }
+        } else {
+            System.out.println("ERROR Incorrect input");
+            System.out.println("Press ENTER key to continue");
+            sc.nextLine();
+            menu();
+            return;
+        };
         this.level = myhero.getLevel();
         System.out.println("Hero created successfully!\n\nPress ENTER key to continue");
         sc.nextLine();
         startGame(null);
     }
 
-    public void switchtoGui(Game game)
-    {
-        if (game == null || myhero == null)
-        {
+    public void switchtoGui(Game game) {
+        if (game == null || myhero == null) {
             Menu.main();
-        }
-        else
-        {
+        } else {
             GUIView.main(game, this.myhero);
         }
     }
@@ -122,38 +132,46 @@ public class ConsoleView {
         System.out.println("---------OPTIONS----------");
         System.out.println("1. SELECT A HERO");
         System.out.println("2. CREATE YOUR OWN HERO");
-        System.out.println("3. SWITCH TO GUI");
-        System.out.println("4. EXIT");
+        System.out.println("3. RESUME");
+        System.out.println("4. SWITCH TO GUI");
+        System.out.println("5. EXIT");
         System.out.println("--------------------------");
         System.out.println("NUMBER");
-
         System.out.println("\n Enter your number of choice");
         String output = sc.nextLine();
-        int choice = Integer.parseInt(output);
-        switch (choice) {
-        case 1:
+
+        if (output.equalsIgnoreCase("1")) {
             chooseHeroes();
-            break;
-        case 2:
+        } else if (output.equalsIgnoreCase("2")) {
             createHero();
-            break;
-        case 3:
+        } else if (output.equalsIgnoreCase("3")) {
+            resume();
+        } else if (output.equalsIgnoreCase("4")) {
             switchtoGui(null);
-            break;
-        case 4:
+        } else if (output.equalsIgnoreCase("5")) {
             System.out.println("............");
-            break;
-        default:
+        } else {
             System.out.println("Wrong input! Let's try that again");
+            System.out.println("Press ENTER key to continue");
+            sc.nextLine();
             menu();
-            break;
+        }
+    }
+
+    private void resume() {
+        ArrayList<Object> gamestate = GameController.getGameState();
+        if (gamestate.size() == 0) {
+            System.out.println("....\nTHERE ARE NO SAVED GAMES.");
+            menu();
+        } else {
+            this.myhero = (Hero) gamestate.get(1);
+            startGame((Game) gamestate.get(0));
         }
     }
 
     public int getKey() {
         System.out.println("up,down,left,right,exit,save,gui - Enter key");
         String output = sc.nextLine();
-        // sc.close();
         if (output.equalsIgnoreCase("left")) {
             return utils.left;
         } else if (output.equalsIgnoreCase("right")) {
@@ -174,8 +192,7 @@ public class ConsoleView {
 
     public void startGame(Game game) {
         boolean gameover = false;
-        if (game == null)
-        {
+        if (game == null) {
             game = new Game(level);
             Factory.generateVillains(game.getMap(), level);
         }
@@ -205,6 +222,7 @@ public class ConsoleView {
                 }
             }
             if (key == 4) {
+                GameController.saveGameState(game, this.myhero);
                 game.exitGame(myhero);
                 break;
             }
@@ -227,11 +245,9 @@ public class ConsoleView {
                 } else if (out == 1) {
                     System.out.println("YOU have encountered the mighty Villain.");
                     System.out.println(game.getVillain(myhero.getX(), myhero.getY()));
-                    
 
                     String output = "";
-                    while (!output.equalsIgnoreCase("fight") && !output.equalsIgnoreCase("run"))
-                    {
+                    while (!output.equalsIgnoreCase("fight") && !output.equalsIgnoreCase("run")) {
                         System.out.println("Do you want to 'fight' or do you want to 'run'?");
                         output = sc.nextLine();
                     }
@@ -280,8 +296,7 @@ public class ConsoleView {
                 }
             }
         }
-        if (gameover)
-        {
+        if (gameover) {
             sc.close();
         }
     }
