@@ -1,9 +1,11 @@
 package za.co.bngweny.Model;
 
+import java.io.Serializable;
+
 import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.Range;
 
-public class Villain
+public class Villain implements Serializable
 {
     @NotNull
     private String name;

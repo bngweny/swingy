@@ -440,7 +440,7 @@ public class GUIView extends javax.swing.JFrame {
     }// GEN-LAST:event_btnUpActionPerformed
 
     private void btnExitActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnExitActionPerformed
-        // TODO add your handling code here:
+        GameController.saveGameState(this.game, this.myhero);
         Menu.main();
         this.dispose();
     }// GEN-LAST:event_btnExitActionPerformed
@@ -458,7 +458,6 @@ public class GUIView extends javax.swing.JFrame {
     }// GEN-LAST:event_btnDownActionPerformed
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnSaveActionPerformed
-        // TODO add your handling code here:
         int option = JOptionPane.showConfirmDialog(rootPane, "Do you want to save Hero?");
         if (option == 0) {
             GameController.saveHero(myhero);

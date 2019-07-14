@@ -1,8 +1,11 @@
 package za.co.bngweny.Model;
 
+import java.io.Serializable;
+
 import za.co.bngweny.Controller.Factory;
 
-public class Game {
+public class Game implements Serializable
+{
     private int level;
     private Villain map[][];
 
