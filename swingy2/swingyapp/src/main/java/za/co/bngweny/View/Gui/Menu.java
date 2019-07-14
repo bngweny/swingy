@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import za.co.bngweny.Controller.GameController;
 import za.co.bngweny.Model.Game;
 import za.co.bngweny.Model.Hero;
+import za.co.bngweny.View.ConsoleView;
 
 /**
  *
@@ -44,6 +45,7 @@ public class Menu extends javax.swing.JFrame {
         btnLoad = new javax.swing.JButton();
         btnCreate = new javax.swing.JButton();
         btnExit = new javax.swing.JButton();
+        btnToConsole = new javax.swing.JButton();
         btnResume = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -72,6 +74,13 @@ public class Menu extends javax.swing.JFrame {
             }
         });
 
+        btnToConsole.setText("To Console");
+        btnToConsole.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnToConsoleActionPerformed(evt);
+            }
+        });
+
         btnExit.setText("Exit");
         btnExit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -94,6 +103,7 @@ public class Menu extends javax.swing.JFrame {
                             .addComponent(btnResume)
                             .addComponent(btnCreate)
                             .addComponent(btnLoad)
+                            .addComponent(btnToConsole)
                             .addComponent(btnExit))))
                 .addContainerGap(70, Short.MAX_VALUE))
         );
@@ -109,6 +119,8 @@ public class Menu extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnCreate)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnToConsole)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnExit)
                 .addContainerGap(66, Short.MAX_VALUE))
         );
@@ -116,23 +128,28 @@ public class Menu extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnResumeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoadActionPerformed
+    private void btnResumeActionPerformed(java.awt.event.ActionEvent evt) {
         ArrayList<Object> gamestate = GameController.getGameState();
         GUIView.main((Game)gamestate.get(0), (Hero)gamestate.get(1));
         this.dispose();
     }
 
-    private void btnLoadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoadActionPerformed
+    private void btnLoadActionPerformed(java.awt.event.ActionEvent evt) {
         this.dispose();
         Load.main();
     }
 
-    private void btnCreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCreateActionPerformed
-        ChooseHero.main();
+    private void btnCreateActionPerformed(java.awt.event.ActionEvent evt) {
         this.dispose();
+        ChooseHero.main();
     }
 
-    private void btnExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExitActionPerformed
+    private void btnToConsoleActionPerformed(java.awt.event.ActionEvent evt) {
+        this.dispose();
+        ConsoleView cs = new ConsoleView();
+    }
+
+    private void btnExitActionPerformed(java.awt.event.ActionEvent evt) {
         System.exit(0);
     }
 
@@ -177,6 +194,7 @@ public class Menu extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCreate;
     private javax.swing.JButton btnExit;
+    private javax.swing.JButton btnToConsole;
     private javax.swing.JButton btnLoad;
     private javax.swing.JLabel lblTitle;
     private javax.swing.JButton btnResume;
