@@ -28,14 +28,15 @@
     </dependency>
   </dependencies>
   <properties>
-    <maven.compiler.source>6</maven.compiler.source>
-    <maven.compiler.target>6</maven.compiler.target>
+    <maven.compiler.source>7</maven.compiler.source>
+    <maven.compiler.target>7</maven.compiler.target>
   </properties>
   <build>
     <plugins>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-jar-plugin</artifactId>
+		<artifactId>maven-jar-plugin</artifactId>
+		<version>3.1.1</version>
         <configuration>
           <archive>
             <manifest>
